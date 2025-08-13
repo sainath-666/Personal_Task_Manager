@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Task } from '../../models/task.model';
 import { FormsModule } from '@angular/forms';
 import { EditTaskModalComponent } from '../edit-task-modal/edit-task-modal.component';
+import { TaskItem } from '../../services/task.service';
 
 @Component({
   selector: 'app-task-item',
@@ -11,13 +11,13 @@ import { EditTaskModalComponent } from '../edit-task-modal/edit-task-modal.compo
   templateUrl: './task-item.component.html',
 })
 export class TaskItemComponent {
-  @Input({ required: true }) task!: Task;
+  @Input({ required: true }) task!: TaskItem;
   @Output() taskDeleted = new EventEmitter<number>();
-  @Output() taskUpdated = new EventEmitter<Task>();
+  @Output() taskUpdated = new EventEmitter<Partial<TaskItem>>();
 
   toggleComplete(): void {
-    const updatedTask: Task = {
-      ...this.task,
+    const updatedTask: Partial<TaskItem> = {
+      taskId: this.task.taskId,
       isCompleted: !this.task.isCompleted,
     };
     this.taskUpdated.emit(updatedTask);
@@ -35,7 +35,7 @@ export class TaskItemComponent {
     this.showEditModal = true;
   }
 
-  onTaskUpdated(updatedTask: Task): void {
+  onTaskUpdated(updatedTask: Partial<TaskItem>): void {
     this.taskUpdated.emit(updatedTask);
     this.showEditModal = false;
   }

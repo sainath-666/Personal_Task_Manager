@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { TaskService } from '../../services/task.service';
-import { Task } from '../../models/task.model';
+import { TaskService, TaskItem } from '../../services/task.service';
 
 @Component({
   selector: 'app-add-task-modal',
@@ -12,13 +11,14 @@ import { Task } from '../../models/task.model';
 })
 export class AddTaskModalComponent {
   @Output() closeModal = new EventEmitter<void>();
-  @Output() taskAdded = new EventEmitter<Task>();
+  @Output() taskAdded = new EventEmitter<TaskItem>();
 
-  newTask: Task = {
+  newTask: Partial<TaskItem> = {
     title: '',
     description: '',
     isCompleted: false,
     dueDate: undefined,
+    createdDate: new Date().toISOString(),
   };
 
   constructor(private taskService: TaskService) {}

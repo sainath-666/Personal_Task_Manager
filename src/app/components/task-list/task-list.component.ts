@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TaskService } from '../../services/task.service';
-import { Task } from '../../models/task.model';
+import { TaskService, TaskItem } from '../../services/task.service';
 import { TaskItemComponent } from '../task-item/task-item.component';
 import { AddTaskModalComponent } from '../add-task-modal/add-task-modal.component';
 
@@ -13,7 +12,7 @@ import { AddTaskModalComponent } from '../add-task-modal/add-task-modal.componen
   styleUrls: ['./task-list.component.css'],
 })
 export class TaskListComponent implements OnInit {
-  tasks: Task[] = [];
+  tasks: TaskItem[] = [];
   showAddModal = false;
 
   constructor(private taskService: TaskService) {}
@@ -23,23 +22,23 @@ export class TaskListComponent implements OnInit {
   }
 
   loadTasks(): void {
-    this.taskService.getAllTasks().subscribe({
+    this.taskService.getTasks().subscribe({
       next: (tasks) => (this.tasks = tasks),
       error: (error) => console.error('Error loading tasks:', error),
     });
   }
 
-  onTaskAdded(task: Task): void {
+  onTaskAdded(task: TaskItem): void {
     this.tasks = [...this.tasks, task];
     this.showAddModal = false;
   }
 
-  updateTask(task: Task): void {
+  updateTask(task: Partial<TaskItem>): void {
     if (task.taskId) {
       this.taskService.updateTask(task.taskId, task).subscribe({
-        next: (updatedTask) => {
+        next: () => {
           this.tasks = this.tasks.map((t) =>
-            t.taskId === updatedTask.taskId ? updatedTask : t
+            t.taskId === task.taskId ? { ...t, ...task } : t
           );
         },
         error: (error) => console.error('Error updating task:', error),
