@@ -25,9 +25,7 @@ export class AddTaskModalComponent {
 
   getCurrentDateTime(): string {
     const now = new Date();
-    // Adjust for timezone offset to get local time
     now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
-    // Return in YYYY-MM-DDTHH:MM format (required for datetime-local input)
     return now.toISOString().slice(0, 16);
   }
 

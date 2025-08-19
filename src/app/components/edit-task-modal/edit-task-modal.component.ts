@@ -30,6 +30,12 @@ export class EditTaskModalComponent {
     this.editedTask = { ...this.task };
   }
 
+    getCurrentDateTime(): string {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    return now.toISOString().slice(0, 16);
+  }
+
   onSubmit(): void {
     if (this.task.taskId) {
       this.taskService.updateTask(this.task.taskId, this.editedTask).subscribe({
