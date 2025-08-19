@@ -15,16 +15,16 @@
     </button>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2    gap-6 ">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
       <h2 class="text-2xl font-bold text-white mb-4">Pending</h2>
-      @for (task of tasks; track task.taskId) { @if (!task.isCompleted) {
+      @for (task of sortedPendingTasks; track task.taskId) {
       <app-task-item
         [task]="task"
         (taskDeleted)="deleteTask($event)"
         (taskUpdated)="updateTask($event)"
       />
-      } } @empty {
+      } @empty {
       <div
         class="col-span-full text-center py-10 text-blue-300 text-xl font-semibold"
       >

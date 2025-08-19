@@ -14,6 +14,16 @@ export class TaskListComponent implements OnInit {
   tasks: TaskItem[] = [];
   showAddModal = false;
 
+  get sortedPendingTasks(): TaskItem[] {
+    return this.tasks
+      .filter((task) => !task.isCompleted)
+      .sort((a, b) => {
+        if (!a.dueDate) return 1;
+        if (!b.dueDate) return -1;
+        return new Date(a.dueDate).getTime() - new Date(b.dueDate).getTime();
+      });
+  }
+
   constructor(private taskService: TaskService) {}
 
   ngOnInit(): void {
