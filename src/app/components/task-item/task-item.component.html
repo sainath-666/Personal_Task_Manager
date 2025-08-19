@@ -26,6 +26,7 @@
           (change)="toggleComplete()"
           class="w-5 h-5 rounded border-purple-300 text-blue-500 focus:ring-blue-400"
         />
+        <!-- } -->
 
         <h3
           [class.line-through]="task.isCompleted"
@@ -46,7 +47,7 @@
       </button>
       }
       <button
-        (click)="onDelete()"
+        (click)="onDeleteClick()"
         class="bg-red-400 text-white px-3 py-1 rounded-lg hover:bg-red-500 transition font-semibold shadow"
       >
         Delete
@@ -70,3 +71,10 @@
   />
   }
 </div>
+
+@if (showDeleteModal) {
+<app-delete-confirm-modal
+  (confirm)="onDeleteConfirm()"
+  (cancel)="onDeleteCancel()"
+/>
+}

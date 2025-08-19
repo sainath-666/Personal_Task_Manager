@@ -2,12 +2,18 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EditTaskModalComponent } from '../edit-task-modal/edit-task-modal.component';
+import { DeleteConfirmModalComponent } from '../delete-confirm-modal/delete-confirm-modal.component';
 import { TaskItem } from '../../services/task.service';
 
 @Component({
   selector: 'app-task-item',
   standalone: true,
-  imports: [CommonModule, FormsModule, EditTaskModalComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    EditTaskModalComponent,
+    DeleteConfirmModalComponent,
+  ],
   templateUrl: './task-item.component.html',
 })
 export class TaskItemComponent {
@@ -30,6 +36,7 @@ export class TaskItemComponent {
   }
 
   showEditModal = false;
+  showDeleteModal = false;
 
   onEdit(): void {
     this.showEditModal = true;
@@ -38,6 +45,21 @@ export class TaskItemComponent {
   onTaskUpdated(updatedTask: Partial<TaskItem>): void {
     this.taskUpdated.emit(updatedTask);
     this.showEditModal = false;
+  }
+
+  onDeleteClick(): void {
+    this.showDeleteModal = true;
+  }
+
+  onDeleteConfirm(): void {
+    if (this.task.taskId) {
+      this.taskDeleted.emit(this.task.taskId);
+    }
+    this.showDeleteModal = false;
+  }
+
+  onDeleteCancel(): void {
+    this.showDeleteModal = false;
   }
 
   isOverdue(): boolean {
