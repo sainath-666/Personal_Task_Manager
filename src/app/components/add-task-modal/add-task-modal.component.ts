@@ -23,6 +23,14 @@ export class AddTaskModalComponent {
 
   constructor(private taskService: TaskService) {}
 
+  getCurrentDateTime(): string {
+    const now = new Date();
+    // Adjust for timezone offset to get local time
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    // Return in YYYY-MM-DDTHH:MM format (required for datetime-local input)
+    return now.toISOString().slice(0, 16);
+  }
+
   onSubmit(): void {
     this.taskService.createTask(this.newTask).subscribe({
       next: (createdTask) => {

@@ -9,7 +9,6 @@ import { AddTaskModalComponent } from '../add-task-modal/add-task-modal.componen
   standalone: true,
   imports: [CommonModule, TaskItemComponent, AddTaskModalComponent],
   templateUrl: './task-list.component.html',
-  styleUrls: ['./task-list.component.css'],
 })
 export class TaskListComponent implements OnInit {
   tasks: TaskItem[] = [];

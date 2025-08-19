@@ -1,15 +1,15 @@
-<div class="container mx-auto h-screen p-6 bg-white bg-opacity-80">
-  <div class="flex justify-between items-center mb-8">
-    <h1 class="text-4xl font-extrabold text-purple-700 drop-shadow">
-      Personal Task Manager
-    </h1>
-    <button
-      (click)="showAddModal = true"
-      class="bg-gradient-to-r from-blue-400 to-purple-400 hover:from-blue-500 hover:to-purple-500 text-white px-6 py-3 rounded-xl font-bold shadow-md transition"
-    >
-      Add New Task
-    </button>
-  </div>
+<div class="container mx-auto h-screen p-6 bg-gray-900">
+<div class="flex justify-between items-center mb-8 rounded-2xl p-6 border border-gray-700 shadow-2xl">
+  <h1 class="text-4xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent p-2">
+    Personal Task Manager
+  </h1>
+  <button
+    (click)="showAddModal = true"
+    class="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg hover:shadow-cyan-500/25 transition-all duration-300 transform hover:scale-105"
+  >
+    Add Task
+  </button>
+</div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     @for (task of tasks; track task.taskId) {
@@ -20,7 +20,7 @@
     />
     } @empty {
     <div
-      class="col-span-full text-center py-10 text-blue-400 text-xl font-semibold"
+      class="col-span-full text-center py-10 text-blue-300 text-xl font-semibold"
     >
       No tasks found. Create one to get started!
     </div>
