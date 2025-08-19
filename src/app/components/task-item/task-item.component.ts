@@ -39,4 +39,13 @@ export class TaskItemComponent {
     this.taskUpdated.emit(updatedTask);
     this.showEditModal = false;
   }
+
+  isOverdue(): boolean {
+    if (!this.task.dueDate || this.task.isCompleted) {
+      return false;
+    }
+    const dueDateTime = new Date(this.task.dueDate).getTime();
+    const currentTime = new Date().getTime();
+    return dueDateTime < currentTime;
+  }
 }

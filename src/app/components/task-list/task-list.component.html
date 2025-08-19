@@ -17,7 +17,7 @@
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     <div>
-      <h2 class="text-2xl font-bold text-white mb-4">Pending</h2>
+      <h2 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent mb-4 p-2 border-b-2 border-gray-700">Pending</h2>
       @for (task of sortedPendingTasks; track task.taskId) {
       <app-task-item
         [task]="task"
@@ -34,7 +34,7 @@
     </div>
 
     <div>
-      <h2 class="text-2xl font-bold text-white mb-4">Completed</h2>
+      <h2 class="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 bg-clip-text text-transparent mb-4 p-2 border-b-2 border-gray-700">Completed</h2>
       @for (task of tasks; track task.taskId) { @if (task.isCompleted) {
       <app-task-item
         [task]="task"
