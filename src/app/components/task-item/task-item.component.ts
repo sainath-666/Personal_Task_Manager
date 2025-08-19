@@ -22,8 +22,8 @@ export class TaskItemComponent {
   @Output() taskUpdated = new EventEmitter<Partial<TaskItem>>();
 
   toggleComplete(): void {
-    const updatedTask: Partial<TaskItem> = {
-      taskId: this.task.taskId,
+    const updatedTask: TaskItem = {
+      ...this.task,
       isCompleted: !this.task.isCompleted,
     };
     this.taskUpdated.emit(updatedTask);

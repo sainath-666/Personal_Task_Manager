@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TaskService, TaskItem } from '../../services/task.service';
 import { TaskItemComponent } from '../task-item/task-item.component';
@@ -7,7 +7,7 @@ import { AddTaskModalComponent } from '../add-task-modal/add-task-modal.componen
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [CommonModule, TaskItemComponent, AddTaskModalComponent],
+  imports: [CommonModule, TaskItemComponent, AddTaskModalComponent,],
   templateUrl: './task-list.component.html',
 })
 export class TaskListComponent implements OnInit {
@@ -25,6 +25,26 @@ export class TaskListComponent implements OnInit {
   }
 
   constructor(private taskService: TaskService) {}
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent): void {
+    if (
+      event.key.toLowerCase() === 'a' &&
+      !event.ctrlKey &&
+      !event.altKey &&
+      !event.metaKey
+    ) {
+      if (
+        !(
+          event.target instanceof HTMLInputElement ||
+          event.target instanceof HTMLTextAreaElement
+        )
+      ) {
+        event.preventDefault();
+        this.showAddModal = true;
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.loadTasks();
