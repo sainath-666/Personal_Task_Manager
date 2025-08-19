@@ -62,7 +62,21 @@
     Due: {{ task.dueDate | date : "medium" }}
   </div>
   } @if(isOverdue()) {
-  <div class="text-sm text-red-600 font-semibold">Overdue</div>
+  <div class="text-sm text-red-600 font-semibold">
+    <span
+            class="task-status-label"
+        style="
+          font-weight: bold;
+          padding: 2px 8px;
+          border-radius: 8px;
+          display: inline-block;
+          align-self: flex-start;
+          margin-top: 4px;
+        "
+    >
+Over Due
+    </span>
+    </div>
   } @if (showEditModal) {
   <app-edit-task-modal
     [task]="task"
